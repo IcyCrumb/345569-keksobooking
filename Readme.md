@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Людмила Королева](https://up.htmlacademy.ru/javascript/8/user/345569).
-* Наставник: `Неизвестно`.
+* Наставник: `Денис Корнейчук`.
 
 ---
 
