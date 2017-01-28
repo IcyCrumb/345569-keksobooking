@@ -14,3 +14,10 @@ function setHandler(i) {
     dialogWindow.style.display = "block";
   };
 }
+
+var buttonCross = document.querySelector(".dialog__close");
+buttonCross.addEventListener("click", function() {
+  var dialogWindow = document.querySelector(".dialog");
+  dialogWindow.style.display = "none";
+  //document.querySelector("div.pin.pin--active").classList.remove("pin--active");
+});
