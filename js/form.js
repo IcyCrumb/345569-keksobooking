@@ -2,13 +2,15 @@
 
 var items = document.querySelectorAll(".pin");
 
-for (var i = 0, len = items.length; i < len; i++) {
-  items[i].addEventListener('click', set_handler(i), false);
+for (var i = 0;  i < items.length; i++) {
+  items[i].addEventListener("click", setHandler(i), false);
 }
 
-function set_handler(i) {
+function setHandler(i) {
   return function(e) {
     document.querySelector("div.pin.pin--active").classList.remove("pin--active");
     items[i].classList.add("pin--active");
+    var dialogWindow = document.querySelector(".dialog");
+    dialogWindow.style.display = "block";
   };
 }
