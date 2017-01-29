@@ -24,3 +24,28 @@ buttonCross.addEventListener("click", function() {
   dialogWindow.style.display = "none";
   document.querySelector("div.pin.pin--active").classList.remove("pin--active");
 });
+
+var dialogTitle = document.querySelector(".dialog__title");
+dialogTitle.required = true;
+dialogTitle.minLength = 30;
+dialogTitle.maxLength = 100;
+
+var lodgePrice = document.querySelector(".lodge__price");
+lodgePrice.required = true;
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+isNumeric(onkeypress);
+
+/*
+input.onkeypress = function(e) {
+  e = e || event;
+  if (e.ctrlKey || e.altKey || e.metaKey) return;
+  var chr = getChar(e);
+  if (chr == null) return;
+  if (chr < '0' || chr > '9') {
+    return false;
+  }
+}
+*/
