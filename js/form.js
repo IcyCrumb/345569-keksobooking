@@ -8,7 +8,10 @@ for (var i = 0;  i < items.length; i++) {
 
 function setHandler(i) {
   return function(e) {
-    document.querySelector("div.pin.pin--active").classList.remove("pin--active");
+    var active = document.querySelector("div.pin.pin--active");
+    if (active) {
+      active.classList.remove("pin--active");
+    }
     items[i].classList.add("pin--active");
     var dialogWindow = document.querySelector(".dialog");
     dialogWindow.style.display = "block";
@@ -19,5 +22,5 @@ var buttonCross = document.querySelector(".dialog__close");
 buttonCross.addEventListener("click", function() {
   var dialogWindow = document.querySelector(".dialog");
   dialogWindow.style.display = "none";
-  //document.querySelector("div.pin.pin--active").classList.remove("pin--active");
+  document.querySelector("div.pin.pin--active").classList.remove("pin--active");
 });
