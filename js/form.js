@@ -25,6 +25,21 @@ buttonCross.addEventListener("click", function() {
   document.querySelector("div.pin.pin--active").classList.remove("pin--active");
 });
 
+
+var title = document.getElementById("title");
+title.required = true;
+title.minLength = 30;
+title.maxLength = 100;
+
+var price = document.getElementById("price");
+price.setAttribute("min", 1000);
+price.setAttribute("max", 1000000);
+
+var address = document.getElementById("address");
+address.required = true;
+
+
+/*
 var dialogTitle = document.querySelector(".dialog__title");
 dialogTitle.required = true;
 dialogTitle.minLength = 30;
@@ -37,7 +52,7 @@ function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 isNumeric(onkeypress);
-
+*/
 /*
 input.onkeypress = function(e) {
   e = e || event;
