@@ -38,9 +38,23 @@ price.setAttribute("max", 1000000);
 var address = document.getElementById("address");
 address.required = true;
 
-var select1 = document.getElementById("time");
-var select2 = document.getElementById("timeout");
-select1.addEventListener('change', function() {
+var selectTimeIn = document.getElementById("time");
+var selectTimeOut = document.getElementById("timeout");
+selectTimeIn.addEventListener("change", function() {
   var i = this.selectedIndex;
-  select2.selectedIndex = i;
+  selectTimeOut.selectedIndex = i;
+});
+
+var selectType = document.getElementById("type");
+var selectPrice = document.getElementById("price");
+selectType.addEventListener("change", function() {
+  if (selectType.value == "Квартира") {
+    price.setAttribute("min", 1000);
+  }
+  else if (selectType.value == "Лачуга") {
+    price.setAttribute("min", 0);
+  }
+  else if (selectType.value == "Дворец") {
+    price.setAttribute("min", 10000);
+  }
 });
