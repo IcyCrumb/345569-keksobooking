@@ -39,28 +39,13 @@ var address = document.getElementById("address");
 address.required = true;
 
 
-/*
-var dialogTitle = document.querySelector(".dialog__title");
-dialogTitle.required = true;
-dialogTitle.minLength = 30;
-dialogTitle.maxLength = 100;
+var select2 = document.getElementById("timeout");
+var optionStore = [];
+for( var i = 0; i < select2.options.length; ++i )
+  optionStore[i] = select2.options[i];
 
-var lodgePrice = document.querySelector(".lodge__price");
-lodgePrice.required = true;
-
-function isNumeric(n) {
-  return !isNaN(parseFloat(n)) && isFinite(n);
-}
-isNumeric(onkeypress);
-*/
-/*
-input.onkeypress = function(e) {
-  e = e || event;
-  if (e.ctrlKey || e.altKey || e.metaKey) return;
-  var chr = getChar(e);
-  if (chr == null) return;
-  if (chr < '0' || chr > '9') {
-    return false;
-  }
-}
-*/
+var select1 = document.getElementById("time");
+select1.addEventListener('change', function() {
+  var i = this.selectedIndex;
+  select2.selectedIndex = i;
+});
