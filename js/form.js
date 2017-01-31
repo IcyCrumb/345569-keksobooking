@@ -58,3 +58,41 @@ selectType.addEventListener("change", function() {
     price.setAttribute("min", 10000);
   }
 });
+
+/*var selectRoomNumber = document.getElementById("room_number");
+var selectCapacity = document.getElementById("capacity");
+
+selectRoomNumber.addEventListener("change", function() {
+  var n = selectRoomNumber.value;
+  //var m = selectCapacity.value;
+  if (n == "2 комнаты" || n == "100 комнат") {
+    selectCapacity.selectedValue  = "для 3 гостей";
+  }
+  else if (n == "1 комната") {
+    selectCapacity.selectedValue = "не для гостей";
+  }
+});
+*/
+
+var selectCapacity = document.getElementById("capacity");
+var optionStore = [];
+for( var i = 0; i < selectCapacity.options.length; ++i ) {
+  optionStore[i] = selectCapacity.options[i];
+}
+
+var selectRoomNumber = document.getElementById("room_number");
+selectRoomNumber.addEventListener("change", function() {
+  var i = this.selectedIndex;
+  //var value = this.selectedValue;
+  selectCapacity.options.length=0;
+  if (i == 0) {
+    for (var k=0; k<1; k++) {
+      selectCapacity.options[k] = optionStore[1];
+    }
+  }
+  else {
+    for (var k=0; k<1; k++) {
+      selectCapacity.options[k] = optionStore[0];
+    }
+  }
+});
