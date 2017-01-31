@@ -38,13 +38,8 @@ price.setAttribute("max", 1000000);
 var address = document.getElementById("address");
 address.required = true;
 
-
-var select2 = document.getElementById("timeout");
-var optionStore = [];
-for( var i = 0; i < select2.options.length; ++i )
-  optionStore[i] = select2.options[i];
-
 var select1 = document.getElementById("time");
+var select2 = document.getElementById("timeout");
 select1.addEventListener('change', function() {
   var i = this.selectedIndex;
   select2.selectedIndex = i;
