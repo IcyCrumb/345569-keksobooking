@@ -40,10 +40,28 @@ address.required = true;
 
 var selectTimeIn = document.getElementById("time");
 var selectTimeOut = document.getElementById("timeout");
+
+var syncTimeinTimeout = function(timein, timeout ) {
+  timein.addEventListener("change", function() {
+    var i = this.selectedIndex;
+    timeout.selectedIndex = i;
+  });
+}
+
+selectTimeIn.addEventListener("change", syncTimeinTimeout(selectTimeIn, selectTimeOut));
+selectTimeIn.addEventListener("change", syncTimeinTimeout(selectTimeOut, selectTimeIn));
+
+/*
 selectTimeIn.addEventListener("change", function() {
   var i = this.selectedIndex;
   selectTimeOut.selectedIndex = i;
 });
+
+selectTimeOut.addEventListener("change", function() {
+  var i = this.selectedIndex;
+  selectTimeIn.selectedIndex = i;
+});
+*/
 
 var selectType = document.getElementById("type");
 var selectPrice = document.getElementById("price");
@@ -61,7 +79,6 @@ selectType.addEventListener("change", function() {
 
 /*var selectRoomNumber = document.getElementById("room_number");
 var selectCapacity = document.getElementById("capacity");
-
 selectRoomNumber.addEventListener("change", function() {
   var n = selectRoomNumber.value;
   //var m = selectCapacity.value;
