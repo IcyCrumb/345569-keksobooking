@@ -108,8 +108,8 @@ selectRoomNumber.addEventListener("change", function() {
     }
   }
   else {
-    for (var k=0; k<1; k++) {
-      selectCapacity.options[k] = optionStore[0];
+    for (var k=0; k<2; k++) {
+      selectCapacity.options[k] = optionStore[k];
     }
   }
 });
