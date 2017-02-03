@@ -30,6 +30,7 @@ var activeElementHandler = function () {
 // и делает видимым элемент .gialog
 for (i = 0; i < pins.length; i++) {
   pins[i].addEventListener('click', function () {
+    this.setAttribute('aria-pressed', 'true');
     activeElementHandler();
     this.classList.add('pin--active');
     showDialog();
@@ -41,6 +42,7 @@ for (i = 0; i < pins.length; i++) {
 for (i = 0; i < pins.length; i++) {
   pins[i].addEventListener('keydown', function(evt) {
     if (evt.keyCode === ENTER_KEY_CODE) {
+      this.setAttribute('aria-pressed', 'true');
       activeElementHandler();
       this.classList.add('pin--active');
       showDialog();
@@ -60,12 +62,14 @@ buttonCross.setAttribute('aria-pressed', 'false');
 
 // при щелчке мышью на крестик срабатывает функция hideDialog()
 buttonCross.addEventListener('click', function() {
+  this.setAttribute('aria-pressed', 'true');
   hideDialog();
 });
 
 // при нажатии enter-ом на крестик срабатывает функция hideDialog()
 buttonCross.addEventListener('keydown', function(evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
+    this.setAttribute('aria-pressed', 'true');
     setCrossHandler();
 }
 });
