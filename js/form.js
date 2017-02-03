@@ -1,29 +1,82 @@
 'use strict';
 
-var items = document.querySelectorAll('.pin');
+var ENTER_KEY_CODE = 13;
+var ESCAPE_KEY_CODE = 27;
 
-for (var i = 0; i < items.length; i++) {
-  items[i].addEventListener('click', setHandler(i), false);
+// находим все элементы с классом .pin и делаем из них кнопки
+var pins = document.querySelectorAll('.pin');
+
+for (var i = 0; i < pins.length; i++) {
+  pins[i].setAttribute('role', 'button');
+  pins[i].tabIndex = 0;
+  pins[i].setAttribute('aria-pressed', 'false');
 }
 
-function setHandler(k) {
-  return function () {
-    var active = document.querySelector('div.pin.pin--active');
-    if (active) {
-      active.classList.remove('pin--active');
+// функция делает элемент с классом .dialog видимым
+var showDialog = function () {
+  var dialogWindow = document.querySelector('.dialog');
+  dialogWindow.style.visibility = 'visible';
+}
+
+// функция деактивирует активный элемент
+var activeElementHandler = function () {
+  var active = document.querySelector('div.pin.pin--active');
+  if (active) {
+    active.classList.remove('pin--active');
+  }
+}
+
+// клик на элемент .pin деактивирует предыдущий элемент, делает активным текущий элемент
+// и делает видимым элемент .gialog
+for (i = 0; i < pins.length; i++) {
+  pins[i].addEventListener('click', function () {
+    activeElementHandler();
+    this.classList.add('pin--active');
+    showDialog();
+  });
+}
+
+// нажатие enter-ом на элемент .pin деактивирует предыдущий элемент,
+//делает активным текущий элемент и делает видимым элемент .gialog
+for (i = 0; i < pins.length; i++) {
+  pins[i].addEventListener('keydown', function(evt) {
+    if (evt.keyCode === ENTER_KEY_CODE) {
+      activeElementHandler();
+      this.classList.add('pin--active');
+      showDialog();
     }
-    items[k].classList.add('pin--active');
-    var dialogWindow = document.querySelector('.dialog');
-    dialogWindow.style.visibility = 'visible';
-  };
+  });
 }
 
+// находим элемент с классом .dialog и делаем из него "документ"
+var dialog = document.querySelector('div.dialog');
+dialog.setAttribute('role', 'document');
+
+// находим элемент с классом .dialog__close и делаем из него кнопку
 var buttonCross = document.querySelector('.dialog__close');
-buttonCross.addEventListener('click', function () {
+buttonCross.setAttribute('role', 'button');
+buttonCross.tabIndex = 1;
+buttonCross.setAttribute('aria-pressed', 'false');
+
+// при щелчке мышью на крестик срабатывает функция hideDialog()
+buttonCross.addEventListener('click', function() {
+  hideDialog();
+});
+
+// при нажатии enter-ом на крестик срабатывает функция hideDialog()
+buttonCross.addEventListener('keydown', function(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    setCrossHandler();
+}
+});
+
+// функция закрывает элемент .dialog и деактивирует элемент .pin
+var hideDialog = function () {
   var dialogWindow = document.querySelector('.dialog');
   dialogWindow.style.visibility = 'hidden';
   document.querySelector('div.pin.pin--active').classList.remove('pin--active');
-});
+};
+
 
 var title = document.getElementById('title');
 title.required = true;
