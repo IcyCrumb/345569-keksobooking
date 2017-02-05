@@ -12,43 +12,58 @@ for (var i = 0; i < pins.length; i++) {
   pins[i].setAttribute('aria-pressed', 'false');
 }
 
+
+var button = document.querySelector('.tokyo__pin-map');
+var active = document.querySelector('div.pin.pin--active');
+var clickedElement = active;
+
 // функция делает элемент с классом .dialog видимым
 var showDialog = function () {
   var dialogWindow = document.querySelector('.dialog');
   dialogWindow.style.visibility = 'visible';
 }
 
-// функция деактивирует активный элемент
-var activeElementHandler = function () {
-  var active = document.querySelector('div.pin.pin--active');
-  if (active) {
-    active.classList.remove('pin--active');
+// функция делает активным кликнутый элемент, деактивирует предыдущий
+// и вызывает функцию showDialog()
+var clickHandler = function(evt) {
+  if (clickedElement) {
+    clickedElement.classList.remove('pin--active')
   }
+  clickedElement = evt.currentTarget;
+  clickedElement.classList.add('pin--active');
+  showDialog();
 }
 
-// клик на элемент .pin деактивирует предыдущий элемент, делает активным текущий элемент
-// и делает видимым элемент .gialog
+// событие для каждого элемента .pin
 for (i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('click', function () {
-    this.setAttribute('aria-pressed', 'true');
-    activeElementHandler();
-    this.classList.add('pin--active');
-    showDialog();
-  });
+  pins[i].addEventListener('click', clickHandler, true);
 }
 
-// нажатие enter-ом на элемент .pin деактивирует предыдущий элемент,
-//делает активным текущий элемент и делает видимым элемент .gialog
-for (i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('keydown', function(evt) {
-    if (evt.keyCode === ENTER_KEY_CODE) {
-      this.setAttribute('aria-pressed', 'true');
-      activeElementHandler();
-      this.classList.add('pin--active');
-      showDialog();
-    }
-  });
+button.addEventListener('click', clickHandler, true);
+
+
+var pressedElement = null;
+
+// функция делает активным кликнутый элемент, деактивирует предыдущий
+// и вызывает функцию showDialog()
+var keydownHandler = function(evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+  if (pressedElement) {
+    pressedElement.classList.remove('pin--active')
+  }
+  pressedElement = evt.currentTarget;
+  pressedElement.classList.add('pin--active');
+  showDialog();
 }
+}
+
+// событие для каждого элемента .pin
+for (i = 0; i < pins.length; i++) {
+  pins[i].addEventListener('keydown', keydownHandler, true);
+}
+
+button.addEventListener('keydown', keydownHandler, true);
+
 
 // находим элемент с классом .dialog и делаем из него "документ"
 var dialog = document.querySelector('div.dialog');
@@ -70,7 +85,7 @@ buttonCross.addEventListener('click', function() {
 buttonCross.addEventListener('keydown', function(evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
     this.setAttribute('aria-pressed', 'true');
-    setCrossHandler();
+    hideDialog();
 }
 });
 
