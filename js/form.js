@@ -13,11 +13,13 @@ var showDialog = function () {
 
 // функция дективирует предыдущий элемент и делает активным текущий
 var activeElementHandler = function (elem) {
+  elem.setAttribute('aria-pressed', 'true');
   var activeElement = document.querySelector('div.pin.pin--active');
 
   if (activeElement) {
     activeElement.classList.remove('pin--active');
   }
+
   elem.classList.add('pin--active');
 };
 
@@ -26,7 +28,7 @@ var activeElementHandler = function (elem) {
 var clickHandler = function (evt) {
   var target = evt.target;
 
-  while (target !== 'div.tokyo__pin-map') {
+  while (target !== document.body) {
     if (target.className === 'pin' || target.className === 'pin pin__main') {
       showDialog();
       activeElementHandler(target);
@@ -40,23 +42,13 @@ var clickHandler = function (evt) {
 // при нажатии enter-ом на любой из потомков элемента pinMap
 var keydownHandler = function (evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
-    var target = evt.target;
-
-    while (target !== 'div.tokyo__pin-map') {
-      if (target.className === 'pin' || target.className === 'pin pin__main') {
-        showDialog();
-        activeElementHandler(target);
-        return;
-      }
-      target = target.parentNode;
-    }
+    evt.target.click();
   }
 };
 
 // вызываем  clickHandler() при клике и keydownHandler() при нажатии на pinMap
 pinMap.addEventListener('click', clickHandler);
 pinMap.addEventListener('keydown', keydownHandler);
-
 
 // находим элемент с классом .dialog__close
 var buttonCross = document.querySelector('.dialog__close');
@@ -65,14 +57,6 @@ var buttonCross = document.querySelector('.dialog__close');
 buttonCross.addEventListener('click', function () {
   buttonCross.setAttribute('aria-pressed', 'true');
   hideDialog();
-});
-
-// при нажатии enter-ом на крестик срабатывает функция hideDialog()
-buttonCross.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ENTER_KEY_CODE) {
-    buttonCross.setAttribute('aria-pressed', 'true');
-    hideDialog();
-  }
 });
 
 // функция закрывает элемент .dialog и деактивирует элемент .pin
