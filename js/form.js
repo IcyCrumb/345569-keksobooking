@@ -18,6 +18,7 @@ var activeElementHandler = function (elem) {
 
   if (activeElement) {
     activeElement.classList.remove('pin--active');
+    elem.setAttribute('aria-pressed', 'false');
   }
 
   elem.classList.add('pin--active');
@@ -29,7 +30,10 @@ var clickHandler = function (evt) {
   var target = evt.target;
 
   while (target !== document.body) {
-    if (target.className === 'pin' || target.className === 'pin pin__main') {
+    if (target.classList.contains('pin')) {
+      if(target.classList.contains('pin--active')) {
+			  break;
+		  }
       showDialog();
       activeElementHandler(target);
       return;
