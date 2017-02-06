@@ -1,92 +1,78 @@
 'use strict';
 
 var ENTER_KEY_CODE = 13;
-var ESCAPE_KEY_CODE = 27;
 
-// находим все элементы с классом .pin и делаем из них кнопки
-var pins = document.querySelectorAll('.pin');
+// находим элемент с классом .tokyo__pin-map
+var pinMap = document.querySelector('.tokyo__pin-map');
 
-for (var i = 0; i < pins.length; i++) {
-  pins[i].setAttribute('role', 'button');
-  pins[i].tabIndex = 0;
-  pins[i].setAttribute('aria-pressed', 'false');
-}
-
-
-var button = document.querySelector('.tokyo__pin-map');
-var active = document.querySelector('div.pin.pin--active');
-var clickedElement = active;
 
 // функция делает элемент с классом .dialog видимым
 var showDialog = function () {
-  var dialogWindow = document.querySelector('.dialog');
-  dialogWindow.style.visibility = 'visible';
-}
+  document.querySelector('.dialog').style.visibility = 'visible';
+};
 
-// функция делает активным кликнутый элемент, деактивирует предыдущий
-// и вызывает функцию showDialog()
-var clickHandler = function(evt) {
-  if (clickedElement) {
-    clickedElement.classList.remove('pin--active')
+// функция дективирует предыдущий элемент и делает активным текущий
+var activeElementHandler = function (elem) {
+  var activeElement = document.querySelector('div.pin.pin--active');
+
+  if (activeElement) {
+    activeElement.classList.remove('pin--active');
   }
-  clickedElement = evt.currentTarget;
-  clickedElement.classList.add('pin--active');
-  showDialog();
-}
+  elem.classList.add('pin--active');
+};
 
-// событие для каждого элемента .pin
-for (i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('click', clickHandler, true);
-}
+// функция вызывает showDialog() и activeElementHandler()
+// при клике на любой из потомков элемента pinMap
+var clickHandler = function (evt) {
+  var target = evt.target;
 
-button.addEventListener('click', clickHandler, true);
+  while (target !== 'div.tokyo__pin-map') {
+    if (target.className === 'pin' || target.className === 'pin pin__main') {
+      showDialog();
+      activeElementHandler(target);
+      return;
+    }
+    target = target.parentNode;
+  }
+};
 
-
-var pressedElement = null;
-
-// функция делает активным кликнутый элемент, деактивирует предыдущий
-// и вызывает функцию showDialog()
-var keydownHandler = function(evt) {
+// функция вызывает showDialog() и activeElementHandler()
+// при нажатии enter-ом на любой из потомков элемента pinMap
+var keydownHandler = function (evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
-  if (pressedElement) {
-    pressedElement.classList.remove('pin--active')
+    var target = evt.target;
+
+    while (target !== 'div.tokyo__pin-map') {
+      if (target.className === 'pin' || target.className === 'pin pin__main') {
+        showDialog();
+        activeElementHandler(target);
+        return;
+      }
+      target = target.parentNode;
+    }
   }
-  pressedElement = evt.currentTarget;
-  pressedElement.classList.add('pin--active');
-  showDialog();
-}
-}
+};
 
-// событие для каждого элемента .pin
-for (i = 0; i < pins.length; i++) {
-  pins[i].addEventListener('keydown', keydownHandler, true);
-}
-
-button.addEventListener('keydown', keydownHandler, true);
+// вызываем  clickHandler() при клике и keydownHandler() при нажатии на pinMap
+pinMap.addEventListener('click', clickHandler);
+pinMap.addEventListener('keydown', keydownHandler);
 
 
-// находим элемент с классом .dialog и делаем из него "документ"
-var dialog = document.querySelector('div.dialog');
-dialog.setAttribute('role', 'document');
-
-// находим элемент с классом .dialog__close и делаем из него кнопку
+// находим элемент с классом .dialog__close
 var buttonCross = document.querySelector('.dialog__close');
-buttonCross.setAttribute('role', 'button');
-buttonCross.tabIndex = 1;
-buttonCross.setAttribute('aria-pressed', 'false');
 
 // при щелчке мышью на крестик срабатывает функция hideDialog()
-buttonCross.addEventListener('click', function() {
-  this.setAttribute('aria-pressed', 'true');
+buttonCross.addEventListener('click', function () {
+  buttonCross.setAttribute('aria-pressed', 'true');
   hideDialog();
 });
 
 // при нажатии enter-ом на крестик срабатывает функция hideDialog()
-buttonCross.addEventListener('keydown', function(evt) {
+buttonCross.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEY_CODE) {
-    this.setAttribute('aria-pressed', 'true');
+    buttonCross.setAttribute('aria-pressed', 'true');
     hideDialog();
-}
+  }
 });
 
 // функция закрывает элемент .dialog и деактивирует элемент .pin
