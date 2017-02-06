@@ -31,9 +31,9 @@ var clickHandler = function (evt) {
 
   while (target !== document.body) {
     if (target.classList.contains('pin')) {
-      if(target.classList.contains('pin--active')) {
-			  break;
-		  }
+      if (target.classList.contains('pin--active')) {
+        break;
+      }
       showDialog();
       activeElementHandler(target);
       return;
