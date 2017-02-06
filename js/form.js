@@ -1,29 +1,75 @@
 'use strict';
 
-var items = document.querySelectorAll('.pin');
+var ENTER_KEY_CODE = 13;
 
-for (var i = 0; i < items.length; i++) {
-  items[i].addEventListener('click', setHandler(i), false);
-}
+// находим элемент с классом .tokyo__pin-map
+var pinMap = document.querySelector('.tokyo__pin-map');
 
-function setHandler(k) {
-  return function () {
-    var active = document.querySelector('div.pin.pin--active');
-    if (active) {
-      active.classList.remove('pin--active');
+
+// функция делает элемент с классом .dialog видимым
+var showDialog = function () {
+  document.querySelector('.dialog').style.visibility = 'visible';
+};
+
+// функция дективирует предыдущий элемент и делает активным текущий
+var activeElementHandler = function (elem) {
+  elem.setAttribute('aria-pressed', 'true');
+  var activeElement = document.querySelector('div.pin.pin--active');
+
+  if (activeElement) {
+    activeElement.classList.remove('pin--active');
+    elem.setAttribute('aria-pressed', 'false');
+  }
+
+  elem.classList.add('pin--active');
+};
+
+// функция вызывает showDialog() и activeElementHandler()
+// при клике на любой из потомков элемента pinMap
+var clickHandler = function (evt) {
+  var target = evt.target;
+
+  while (target !== document.body) {
+    if (target.classList.contains('pin')) {
+      if (target.classList.contains('pin--active')) {
+        break;
+      }
+      showDialog();
+      activeElementHandler(target);
+      return;
     }
-    items[k].classList.add('pin--active');
-    var dialogWindow = document.querySelector('.dialog');
-    dialogWindow.style.visibility = 'visible';
-  };
-}
+    target = target.parentNode;
+  }
+};
 
+// функция вызывает showDialog() и activeElementHandler()
+// при нажатии enter-ом на любой из потомков элемента pinMap
+var keydownHandler = function (evt) {
+  if (evt.keyCode === ENTER_KEY_CODE) {
+    evt.target.click();
+  }
+};
+
+// вызываем  clickHandler() при клике и keydownHandler() при нажатии на pinMap
+pinMap.addEventListener('click', clickHandler);
+pinMap.addEventListener('keydown', keydownHandler);
+
+// находим элемент с классом .dialog__close
 var buttonCross = document.querySelector('.dialog__close');
+
+// при щелчке мышью на крестик срабатывает функция hideDialog()
 buttonCross.addEventListener('click', function () {
+  buttonCross.setAttribute('aria-pressed', 'true');
+  hideDialog();
+});
+
+// функция закрывает элемент .dialog и деактивирует элемент .pin
+var hideDialog = function () {
   var dialogWindow = document.querySelector('.dialog');
   dialogWindow.style.visibility = 'hidden';
   document.querySelector('div.pin.pin--active').classList.remove('pin--active');
-});
+};
+
 
 var title = document.getElementById('title');
 title.required = true;
