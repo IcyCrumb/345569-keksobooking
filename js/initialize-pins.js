@@ -3,25 +3,31 @@ var dialogWindow = document.querySelector('.dialog');
 var activeElement = document.querySelector('div.pin.pin--active')
 var pinMap = document.querySelector('.tokyo__pin-map');
 */
-var dialogWindow = document.querySelector('.dialog');
-var activeElement = document.querySelector('div.pin.pin--active');
 
-var initializePins = function (button, dialogState) {
+
+//;(function() {
+function initializePins(button, dialogState, dialog, active) {
+
 
   // при щелчке мышью на крестик срабатывает функция hideDialog()
   button.addEventListener('click', clickHandler);
 
-   var clickHandler = function (dialogState) {
+   function clickHandler () {
      //var target = evt.target;
-     dialogWindow.style.visibility = dialogState;
+     dialog.style.visibility = dialogState;
      //target.setAttribute('aria-pressed', 'true');
     //activeElement.classList.remove('pin--active');
-     if (activeElement) {
-       activeElement.classList.remove('pin--active');
+     if (active) {
+       active.classList.remove('pin--active');
        //target.setAttribute('aria-pressed', 'false');
      }
+     //target.classList.add('pin--active');
+     //return;
+    pinMap.classList.add('pin--active');
    };
-};
+//};
+window.initializePins = initializePins;
+}//());
 /*
   var clickHandler = function (evt) {
     var target = evt.target;
