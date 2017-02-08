@@ -1,8 +1,16 @@
+'use strict';
+
+var ENTER_KEY_CODE = 13;
+
+var pinMap = document.querySelector('.tokyo__pin-map');
+var buttonCross = document.querySelector('.dialog__close');
+var dialogWindow = document.querySelector('.dialog');
+
 function initializePins() {
 
   // функция делает элемент с классом .dialog видимым
   var showDialog = function () {
-    document.querySelector('.dialog').style.visibility = 'visible';
+    dialogWindow.style.visibility = 'visible';
   };
 
   // функция дективирует предыдущий элемент и делает активным текущий
@@ -57,7 +65,6 @@ function initializePins() {
 
   // функция закрывает элемент .dialog и деактивирует элемент .pin
   var hideDialog = function () {
-    var dialogWindow = document.querySelector('.dialog');
     dialogWindow.style.visibility = 'hidden';
     activeElement = document.querySelector('div.pin.pin--active');
     if (activeElement) {
