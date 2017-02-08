@@ -1,12 +1,12 @@
 'use strict';
 
-var ENTER_KEY_CODE = 13;
+var initializePins = function () {
 
-var pinMap = document.querySelector('.tokyo__pin-map');
-var buttonCross = document.querySelector('.dialog__close');
-var dialogWindow = document.querySelector('.dialog');
+  var ENTER_KEY_CODE = 13;
 
-function initializePins() {
+  var pinMap = document.querySelector('.tokyo__pin-map');
+  var buttonCross = document.querySelector('.dialog__close');
+  var dialogWindow = document.querySelector('.dialog');
 
   // функция делает элемент с классом .dialog видимым
   var showDialog = function () {
@@ -66,11 +66,11 @@ function initializePins() {
   // функция закрывает элемент .dialog и деактивирует элемент .pin
   var hideDialog = function () {
     dialogWindow.style.visibility = 'hidden';
-    activeElement = document.querySelector('div.pin.pin--active');
+    var activeElement = document.querySelector('div.pin.pin--active');
     if (activeElement) {
       activeElement.classList.remove('pin--active');
     }
   };
 
-window.initializePins = initializePins;
-}
+  window.initializePins = initializePins;
+};

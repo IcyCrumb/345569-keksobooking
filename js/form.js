@@ -1,6 +1,6 @@
 'use strict';
 
-initializePins();
+window.initializePins();
 
 
 var title = document.getElementById('title');
@@ -22,8 +22,8 @@ price.required = true;
 price.setAttribute('min', 1000);
 price.setAttribute('max', 1000000);
 
-synchronizeFields (selectType, price, availableAccommodationTypes, availablePrices, currentProperty);
-synchronizeFields (selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
+window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, currentProperty);
+window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
 
 var selectTimeIn = document.getElementById('time');
 var selectTimeOut = document.getElementById('timeout');
@@ -32,8 +32,8 @@ var availableTimein = ['12', '13', '14'];
 var availableTimeout = ['12', '13', '14'];
 currentProperty = 'value';
 
-synchronizeFields (selectTimeIn, selectTimeOut, availableTimein, availableTimeout, currentProperty);
-synchronizeFields (selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
+window.synchronizeFields(selectTimeIn, selectTimeOut, availableTimein, availableTimeout, currentProperty);
+window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
 
 var selectRoomNumber = document.getElementById('room_number');
 var selectCapacity = document.getElementById('capacity');
@@ -42,5 +42,5 @@ var availableRoomNumber = ['1 комната', '2 комнаты', '100 комн
 var availableCapacity = ['не для гостей', 'для 3 гостей'];
 currentProperty = 'value';
 
-synchronizeFields (selectRoomNumber, selectCapacity, availableRoomNumber, availableCapacity, currentProperty);
-synchronizeFields (selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
+window.synchronizeFields(selectRoomNumber, selectCapacity, availableRoomNumber, availableCapacity, currentProperty);
+window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, 'placeholder');
