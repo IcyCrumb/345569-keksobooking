@@ -10,7 +10,4 @@ window.synchronizeFields = (function (firstForm, secondForm, firstArray, secondA
       }
     }
   });
-
-  //window.synchronizeFields = synchronizeFields;
-  //return synchronizeFields;
 });

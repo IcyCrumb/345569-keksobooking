@@ -1,4 +1,5 @@
 'use strict';
+/* global initializePins synchronizeFields */
 
 window.initializePins();
 

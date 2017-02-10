@@ -1,6 +1,6 @@
 'use strict';
 
-var initializePins = function () {
+window.initializePins = (function () {
 
   var ENTER_KEY_CODE = 13;
 
@@ -71,6 +71,4 @@ var initializePins = function () {
       activeElement.classList.remove('pin--active');
     }
   };
-
-  window.initializePins = initializePins;
-};
+});
