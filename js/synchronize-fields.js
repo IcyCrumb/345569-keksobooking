@@ -1,6 +1,6 @@
 'use strict';
 
-var synchronizeFields = function (firstForm, secondForm, firstArray, secondArray, property) {
+window.synchronizeFields = (function (firstForm, secondForm, firstArray, secondArray, property) {
 
   firstForm.addEventListener('change', function () {
     for (var i = 0; i < secondArray.length; i++) {
@@ -11,5 +11,6 @@ var synchronizeFields = function (firstForm, secondForm, firstArray, secondArray
     }
   });
 
-  window.synchronizeFields = synchronizeFields;
-};
+  //window.synchronizeFields = synchronizeFields;
+  //return synchronizeFields;
+});
