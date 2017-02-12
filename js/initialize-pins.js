@@ -74,6 +74,6 @@ window.initializePins = (function () {
     buttonCross.removeEventListener('click', crossClickHandler);
   }
 
-  // вызываем crossClickHandler() при нажатии на крестик
-  buttonCross.addEventListener('click', crossClickHandler);
+
+  showDialog();
 });
