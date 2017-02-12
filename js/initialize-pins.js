@@ -11,6 +11,7 @@ window.initializePins = (function () {
   // функция делает элемент с классом .dialog видимым
   function showDialog() {
     dialogWindow.style.visibility = 'visible';
+    buttonCross.addEventListener('click', crossClickHandler);
   }
 
   // функция дективирует предыдущий элемент и делает активным текущий
@@ -75,5 +76,4 @@ window.initializePins = (function () {
 
   // вызываем crossClickHandler() при нажатии на крестик
   buttonCross.addEventListener('click', crossClickHandler);
-  buttonCross.addEventListener('keydown', crossClickHandler);
 });
