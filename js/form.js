@@ -3,6 +3,7 @@
 window.form = (function () {
 
   window.initializePins();
+  window.showCard();
 
 
   var title = document.getElementById('title');
