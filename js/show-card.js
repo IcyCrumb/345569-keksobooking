@@ -4,10 +4,12 @@ window.showCard = (function () {
    var buttonCross = document.querySelector('.dialog__close');
    var dialogWindow = document.querySelector('.dialog');
 
+   var onButtonCross;
    // функция делает элемент с классом .dialog видимым
-   function showDialog() {
+   function showDialog(callback) {
      dialogWindow.style.visibility = 'visible';
      buttonCross.addEventListener('click', crossClickHandler);
+     onButtonCross = callback;
    }
 
    // обработчик клика на крестик
@@ -22,6 +24,9 @@ window.showCard = (function () {
      var activeElement = document.querySelector('div.pin.pin--active');
      if (activeElement) {
        activeElement.classList.remove('pin--active');
+     }
+     if (typeof onButtonCross === 'function') {
+       onButtonCross();
      }
      buttonCross.removeEventListener('click', crossClickHandler);
    }
