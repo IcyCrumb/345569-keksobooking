@@ -3,16 +3,7 @@
 window.initializePins = (function () {
 
   var ENTER_KEY_CODE = 13;
-
   var pinMap = document.querySelector('.tokyo__pin-map');
-  var buttonCross = document.querySelector('.dialog__close');
-  var dialogWindow = document.querySelector('.dialog');
-
-  // функция делает элемент с классом .dialog видимым
-  function showDialog() {
-    dialogWindow.style.visibility = 'visible';
-    buttonCross.addEventListener('click', crossClickHandler);
-  }
 
   // функция дективирует предыдущий элемент и делает активным текущий
   function activeElementHandler(elem) {
@@ -37,7 +28,7 @@ window.initializePins = (function () {
         if (target.classList.contains('pin--active')) {
           break;
         }
-        showDialog();
+        window.showCard.show()
         activeElementHandler(target);
         return;
       }
@@ -57,23 +48,5 @@ window.initializePins = (function () {
   pinMap.addEventListener('click', clickHandler);
   pinMap.addEventListener('keydown', keydownHandler);
 
-
-  // обработчик клика на крестик
-  function crossClickHandler() {
-    buttonCross.setAttribute('aria-pressed', 'true');
-    hideDialog();
-  }
-
-  // функция закрывает элемент .dialog и деактивирует элемент .pin
-  function hideDialog() {
-    dialogWindow.style.visibility = 'hidden';
-    var activeElement = document.querySelector('div.pin.pin--active');
-    if (activeElement) {
-      activeElement.classList.remove('pin--active');
-    }
-    buttonCross.removeEventListener('click', crossClickHandler);
-  }
-
-
-  showDialog();
+  window.showCard.show();
 });
