@@ -18,17 +18,22 @@ window.initializePins = (function () {
     elem.classList.add('pin--active');
   }
 
-  // функция вызывает showDialog() и activeElementHandler()
-  // при клике на любой из потомков элемента pinMap
-  function clickHandler(evt) {
-    var target = evt.target;
-
+  function commonHandler(target, keyDown) {
     while (target !== document.body) {
       if (target.classList.contains('pin')) {
         if (target.classList.contains('pin--active')) {
           break;
         }
-        window.showCard.show()
+
+        if (keyDown) {
+          var currentActiveElement = document.activeElement;
+          window.showCard.show(function () {
+            currentActiveElement.focus();
+          });
+        } else {
+          window.showCard.show();
+        }
+
         activeElementHandler(target);
         return;
       }
@@ -37,10 +42,18 @@ window.initializePins = (function () {
   }
 
   // функция вызывает showDialog() и activeElementHandler()
+  // при клике на любой из потомков элемента pinMap
+  function clickHandler(evt) {
+    var target = evt.target;
+    commonHandler(target, false);
+  }
+
+  // функция вызывает showDialog() и activeElementHandler()
   // при нажатии enter-ом на любой из потомков элемента pinMap
   function keydownHandler(evt) {
     if (evt.keyCode === ENTER_KEY_CODE) {
-      evt.target.click();
+      var target = evt.target;
+      commonHandler(target, true);
     }
   }
 
@@ -49,4 +62,4 @@ window.initializePins = (function () {
   pinMap.addEventListener('keydown', keydownHandler);
 
   window.showCard.show();
-});
+})();
