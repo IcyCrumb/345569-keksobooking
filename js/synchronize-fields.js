@@ -1,11 +1,12 @@
 'use strict';
 
 window.synchronizeFields = (function () {
-  function synchronizeFields(firstForm, secondForm, firstArray, secondArray, property) {
+
+  function synchronizeFields(firstForm, secondForm, firstArray, secondArray, callback) {
     firstForm.addEventListener('change', function () {
       for (var i = 0; i < firstArray.length; i++) {
         if (firstForm.value === firstArray[i]) {
-          (secondForm[property] = secondArray[i]) || (secondForm[property] = secondArray[i-1]);
+          callback(secondForm, secondArray[i]);
           break;
         }
       }
