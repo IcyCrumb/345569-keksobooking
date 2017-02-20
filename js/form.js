@@ -2,6 +2,12 @@
 
 window.form = (function () {
 
+  var onLoad = function(string) {
+    console.log(string);
+  };
+
+  window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data',onLoad);
+
   var title = document.getElementById('title');
   title.required = true;
   title.minLength = 30;
@@ -25,7 +31,6 @@ window.form = (function () {
   };
 
   window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, callbackMin);
-
 
   var selectTimeIn = document.getElementById('time');
   var selectTimeOut = document.getElementById('timeout');
