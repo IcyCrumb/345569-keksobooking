@@ -62,4 +62,11 @@ window.initializePins = (function () {
   pinMap.addEventListener('keydown', keydownHandler);
 
   window.showCard.show();
+
+  //Вызываем window.load
+  var onLoad = function(string) {
+     console.log(string);
+   };
+
+   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data',onLoad);
 })();
