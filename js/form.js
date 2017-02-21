@@ -2,12 +2,6 @@
 
 window.form = (function () {
 
-  var onLoad = function(string) {
-    console.log(string);
-  };
-
-  window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data',onLoad);
-
   var title = document.getElementById('title');
   title.required = true;
   title.minLength = 30;
