@@ -19,7 +19,13 @@ window.initializePins = (function () {
   }
 
   function commonHandler(target, keyDown) {
+    var dialogWindow = document.querySelector('.dialog');
+    dialogWindow.style.visibility = 'visible';
+    var pinMain = document.querySelector('.pin__main');
     while (target !== document.body) {
+      if (target == pinMain) {
+        dialogWindow.style.visibility = 'hidden';
+      }
       if (target.classList.contains('pin')) {
         if (target.classList.contains('pin--active')) {
           break;
@@ -63,10 +69,48 @@ window.initializePins = (function () {
 
   window.showCard.show();
 
-  //Вызываем window.load
-  var onLoad = function(string) {
-     console.log(string);
-   };
 
-   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data',onLoad);
+  var callback = function(similarApartments) {
+    // Создаём <template> в index.html
+    document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="pin-template"><div class="pin"><img src="" alt="" tabindex="1" class="rounded" width="40" height="40"></div></template>');
+
+    var tokios = document.querySelectorAll('.tokyo__pin-map');
+
+    // Массив пинов
+    var newElements = [];
+
+    for (var j = 0; j < 3; j++) {
+      // Клонируем элемент из <template>
+      var templateElement = document.querySelector('#pin-template');
+      var elementToClone = templateElement.content.querySelector('.pin');
+      // Добавляем его в массив
+      newElements.push(elementToClone.cloneNode(true));
+
+      // Координаты для новых пинов
+      newElements[j].style.position = 'absolute';
+      var x = similarApartments[j].location.x;
+      var y = similarApartments[j].location.y;
+      newElements[j].style.top = y + 'px';
+      newElements[j].style.left = x + 'px';
+
+      // Загрузка аватарки
+      newElements[j].childNodes[0].src = similarApartments[j].author.avatar;
+      tokios[0].appendChild(newElements[j]);
+    }
+
+    // Устанавливаем обработчики событий
+    newElements[0].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[0]);
+    })
+    newElements[1].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[1]);
+    })
+    newElements[2].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[2]);
+    })
+  }
+
+
+    //Вызываем window.load
+   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', callback);
 })();
