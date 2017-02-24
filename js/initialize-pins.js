@@ -23,7 +23,7 @@ window.initializePins = (function () {
     dialogWindow.style.visibility = 'visible';
     var pinMain = document.querySelector('.pin__main');
     while (target !== document.body) {
-      if (target == pinMain) {
+      if (target === pinMain) {
         dialogWindow.style.visibility = 'hidden';
       }
       if (target.classList.contains('pin')) {
@@ -70,7 +70,7 @@ window.initializePins = (function () {
   window.showCard.show();
 
 
-  var callback = function(similarApartments) {
+  var callback = function (similarApartments) {
     // Создаём <template> в index.html
     document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="pin-template"><div class="pin"><img src="" alt="" tabindex="1" class="rounded" width="40" height="40"></div></template>');
 
@@ -101,16 +101,16 @@ window.initializePins = (function () {
     // Устанавливаем обработчики событий
     newElements[0].addEventListener('click', function () {
       window.showCard.fill(similarApartments[0]);
-    })
+    });
     newElements[1].addEventListener('click', function () {
       window.showCard.fill(similarApartments[1]);
-    })
+    });
     newElements[2].addEventListener('click', function () {
       window.showCard.fill(similarApartments[2]);
-    })
-  }
+    });
+  };
 
 
-    //Вызываем window.load
-   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', callback);
+    // Вызываем window.load
+  window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', callback);
 })();

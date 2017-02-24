@@ -9,13 +9,13 @@ window.load = (function () {
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', url, true);
-    xhr.onload = function(event) {
+    xhr.onload = function (event) {
       // Парсим JSON
       var similarApartments = JSON.parse(event.target.responseText);
       callback(similarApartments);
-    }
+    };
 
     xhr.send();
- }
- return load;
+  }
+  return load;
 })();
