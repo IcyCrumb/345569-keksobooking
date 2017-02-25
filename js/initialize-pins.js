@@ -5,10 +5,10 @@ window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
   var pinMap = document.querySelector('.tokyo__pin-map');
 
-/*  var housingType = document.querySelector('#housing_type');
+  var housingType = document.querySelector('#housing_type');
   var housingPrice = document.querySelector('#housing_price');
   var housingRoomNumber = document.querySelector('#housing_room-number');
-  var housingGuestsNumber = document.querySelector('#housing_guests-number'); */
+  var housingGuestsNumber = document.querySelector('#housing_guests-number');
 
   // функция дективирует предыдущий элемент и делает активным текущий
   function activeElementHandler(elem) {
@@ -81,7 +81,7 @@ window.initializePins = (function () {
 
   var callback = function (similarApartments) {
 
-    for (var j = 0; j < 3; j++) {
+    for (var j = 0; j < similarApartments.length; j++) {
       // Клонируем элемент из <template>
       var templateElement = document.querySelector('#pin-template');
       var elementToClone = templateElement.content.querySelector('.pin');
@@ -100,46 +100,19 @@ window.initializePins = (function () {
       tokios[0].appendChild(newElements[j]);
     }
 
-    newElements[0].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[0]);
-    });
-    newElements[0].addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEY_CODE) {
-        window.showCard.fill(similarApartments[0]);
-      }
-    });
-
-    newElements[1].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[1]);
-    });
-    newElements[1].addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEY_CODE) {
-        window.showCard.fill(similarApartments[1]);
-      }
-    });
-
-    newElements[2].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[2]);
-    });
-    newElements[2].addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEY_CODE) {
-        window.showCard.fill(similarApartments[2]);
-      }
-    });
-
-/*    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < similarApartments.length; i++) {
       newElements[i].addEventListener('click', function () {
-       window.showCard.fill(similarApartments[i]);
+        window.showCard.fill(similarApartments[i]);
       });
       newElements[i].addEventListener('keydown', function (evt) {
         if (evt.keyCode === ENTER_KEY_CODE) {
-         window.showCard.fill(similarApartments[i]);
+          window.showCard.fill(similarApartments[i]);
         }
       });
-    } */
+    }
 
+    var housingPrice = document.querySelector('#housing_price');
 
-/*
     var changeHandler = function () {
       var housingTypeValue = housingType.options[housingType.selectedIndex].value;
       var housingPriceValue = housingPrice.options[housingPrice.selectedIndex].value;
@@ -152,9 +125,18 @@ window.initializePins = (function () {
           isFine = false;
         }
 
-        //if (similarApartments[i].offer.price !==  housingPriceValue) {
-          //isFine = false;
-        //}
+        if ((similarApartments[i].offer.price < 10000) && (housingPriceValue !== 'low')) {
+          isFine = false;
+        }
+
+        if ((similarApartments[i].offer.price >= 10000) && (similarApartments[i].offer.price < 50000) && (housingPriceValue !== 'middle')) {
+          isFine = false;
+        }
+
+        if ((similarApartments[i].offer.price > 50000) && (housingPriceValue !== 'hight')) {
+          isFine = false;
+        }
+
 
         if ((String(similarApartments[i].offer.rooms) !==  housingRoomNumberValue) && (housingRoomNumberValue !== 'any')) {
           isFine = false;
@@ -173,10 +155,10 @@ window.initializePins = (function () {
     };
 
       housingType.addEventListener('change', changeHandler);
-      //housingPrice.addEventListener('change', changeHandler);
+      housingPrice.addEventListener('change', changeHandler);
       housingRoomNumber.addEventListener('change', changeHandler);
       housingGuestsNumber.addEventListener('change', changeHandler);
-*/
+
   };
 
 
