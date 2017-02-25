@@ -26,7 +26,6 @@ window.form = (function () {
 
   window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, callbackMin);
 
-
   var selectTimeIn = document.getElementById('time');
   var selectTimeOut = document.getElementById('timeout');
 
@@ -38,7 +37,7 @@ window.form = (function () {
   };
 
   window.synchronizeFields(selectTimeIn, selectTimeOut, availableTimein, availableTimeout, callbackValue);
-  window.synchronizeFields(selectTimeOut, selectTimeIn, availableTimein, availableTimeout, callbackValue);
+  window.synchronizeFields(selectTimeOut, selectTimeIn, availableTimeout, availableTimein, callbackValue);
 
 
   var selectRoomNumber = document.getElementById('room_number');
@@ -48,4 +47,5 @@ window.form = (function () {
   var availableCapacity = ['не для гостей', 'для 3 гостей', 'для 3 гостей'];
 
   window.synchronizeFields(selectRoomNumber, selectCapacity, availableRoomNumber, availableCapacity, callbackValue);
+  window.synchronizeFields(selectCapacity, selectRoomNumber, availableCapacity, availableRoomNumber, callbackValue);
 })();
