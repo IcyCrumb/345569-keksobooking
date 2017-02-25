@@ -54,8 +54,6 @@ window.showCard = (function () {
     description.innerText = data.offer.description;
 
 
-    //document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="lodge-template"><div class="pin"><img src="" alt="Lodge photo" tabindex="2" width="52" height="42"></div></template>');
-
     // Удалила все <img>
     var photoArea = document.querySelector('.lodge__photos');
     var photos = document.querySelectorAll('.lodge__photos');

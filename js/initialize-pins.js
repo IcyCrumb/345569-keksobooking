@@ -5,6 +5,11 @@ window.initializePins = (function () {
   var ENTER_KEY_CODE = 13;
   var pinMap = document.querySelector('.tokyo__pin-map');
 
+/*  var housingType = document.querySelector('#housing_type');
+  var housingPrice = document.querySelector('#housing_price');
+  var housingRoomNumber = document.querySelector('#housing_room-number');
+  var housingGuestsNumber = document.querySelector('#housing_guests-number'); */
+
   // функция дективирует предыдущий элемент и делает активным текущий
   function activeElementHandler(elem) {
     elem.setAttribute('aria-pressed', 'true');
@@ -75,12 +80,8 @@ window.initializePins = (function () {
   var newElements = [];
 
   var callback = function (similarApartments) {
-    // Создаём <template> в index.html
-    //document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="pin-template"><div class="pin"><img src="" alt="" tabindex="1" class="rounded" width="40" height="40"></div></template>');
 
-
-
-    for (var j = 0; j < similarApartments.length; j++) {
+    for (var j = 0; j < 3; j++) {
       // Клонируем элемент из <template>
       var templateElement = document.querySelector('#pin-template');
       var elementToClone = templateElement.content.querySelector('.pin');
@@ -99,7 +100,34 @@ window.initializePins = (function () {
       tokios[0].appendChild(newElements[j]);
     }
 
-    for (let i = 0; i < similarApartments.length; i++) {
+    newElements[0].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[0]);
+    });
+    newElements[0].addEventListener('keydown', function (evt) {
+      if (evt.keyCode === ENTER_KEY_CODE) {
+        window.showCard.fill(similarApartments[0]);
+      }
+    });
+
+    newElements[1].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[1]);
+    });
+    newElements[1].addEventListener('keydown', function (evt) {
+      if (evt.keyCode === ENTER_KEY_CODE) {
+        window.showCard.fill(similarApartments[1]);
+      }
+    });
+
+    newElements[2].addEventListener('click', function () {
+      window.showCard.fill(similarApartments[2]);
+    });
+    newElements[2].addEventListener('keydown', function (evt) {
+      if (evt.keyCode === ENTER_KEY_CODE) {
+        window.showCard.fill(similarApartments[2]);
+      }
+    });
+
+/*    for (let i = 0; i < 3; i++) {
       newElements[i].addEventListener('click', function () {
        window.showCard.fill(similarApartments[i]);
       });
@@ -108,7 +136,47 @@ window.initializePins = (function () {
          window.showCard.fill(similarApartments[i]);
         }
       });
-    }
+    } */
+
+
+/*
+    var changeHandler = function () {
+      var housingTypeValue = housingType.options[housingType.selectedIndex].value;
+      var housingPriceValue = housingPrice.options[housingPrice.selectedIndex].value;
+      var housingRoomNumberValue = housingRoomNumber.options[housingRoomNumber.selectedIndex].value;
+      var housingGuestsNumberValue = housingGuestsNumber.options[housingGuestsNumber.selectedIndex].value;
+
+      for (var i = 0; i < similarApartments.length; i++) {
+        var isFine = true;
+        if ((similarApartments[i].offer.type !==  housingTypeValue) && (housingTypeValue !== 'any')) {
+          isFine = false;
+        }
+
+        //if (similarApartments[i].offer.price !==  housingPriceValue) {
+          //isFine = false;
+        //}
+
+        if ((String(similarApartments[i].offer.rooms) !==  housingRoomNumberValue) && (housingRoomNumberValue !== 'any')) {
+          isFine = false;
+        }
+
+        if ((String(similarApartments[i].offer.guests) !==  housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any')) {
+          isFine = false;
+        }
+
+        if (isFine) {
+          pinMap.children[i+1].style.visibility = 'visible';
+        } else {
+          pinMap.children[i+1].style.visibility = 'hidden';
+        }
+      }
+    };
+
+      housingType.addEventListener('change', changeHandler);
+      //housingPrice.addEventListener('change', changeHandler);
+      housingRoomNumber.addEventListener('change', changeHandler);
+      housingGuestsNumber.addEventListener('change', changeHandler);
+*/
   };
 
 
