@@ -69,17 +69,18 @@ window.initializePins = (function () {
 
   window.showCard.show();
 
+  var tokios = document.querySelectorAll('.tokyo__pin-map');
+
+  // Массив пинов
+  var newElements = [];
 
   var callback = function (similarApartments) {
     // Создаём <template> в index.html
-    document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="pin-template"><div class="pin"><img src="" alt="" tabindex="1" class="rounded" width="40" height="40"></div></template>');
+    //document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="pin-template"><div class="pin"><img src="" alt="" tabindex="1" class="rounded" width="40" height="40"></div></template>');
 
-    var tokios = document.querySelectorAll('.tokyo__pin-map');
 
-    // Массив пинов
-    var newElements = [];
 
-    for (var j = 0; j < 3; j++) {
+    for (var j = 0; j < similarApartments.length; j++) {
       // Клонируем элемент из <template>
       var templateElement = document.querySelector('#pin-template');
       var elementToClone = templateElement.content.querySelector('.pin');
@@ -94,20 +95,20 @@ window.initializePins = (function () {
       newElements[j].style.left = x + 'px';
 
       // Загрузка аватарки
-      newElements[j].childNodes[0].src = similarApartments[j].author.avatar;
+      newElements[j].children[0].src = similarApartments[j].author.avatar;
       tokios[0].appendChild(newElements[j]);
     }
 
-    // Устанавливаем обработчики событий
-    newElements[0].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[0]);
-    });
-    newElements[1].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[1]);
-    });
-    newElements[2].addEventListener('click', function () {
-      window.showCard.fill(similarApartments[2]);
-    });
+    for (let i = 0; i < similarApartments.length; i++) {
+      newElements[i].addEventListener('click', function () {
+       window.showCard.fill(similarApartments[i]);
+      });
+      newElements[i].addEventListener('keydown', function (evt) {
+        if (evt.keyCode === ENTER_KEY_CODE) {
+         window.showCard.fill(similarApartments[i]);
+        }
+      });
+    }
   };
 
 
