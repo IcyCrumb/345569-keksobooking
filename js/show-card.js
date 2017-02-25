@@ -25,7 +25,7 @@ window.showCard = (function () {
     var roomsWordForm = 'комнат';
     if (data.offer.rooms === 1) {
       roomsWordForm = 'комната';
-    } else if (data.offer.rooms === 2) {
+    } else if (data.offer.rooms === 2 || data.offer.rooms === 3 || data.offer.rooms === 4) {
       roomsWordForm = 'комнаты';
     }
 
@@ -54,7 +54,7 @@ window.showCard = (function () {
     description.innerText = data.offer.description;
 
 
-    document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="lodge-template"><div class="pin"><img src="" alt="Lodge photo" tabindex="2" width="52" height="42"></div></template>');
+    //document.getElementsByClassName('tokyo')[0].insertAdjacentHTML('afterbegin', '<template id="lodge-template"><div class="pin"><img src="" alt="Lodge photo" tabindex="2" width="52" height="42"></div></template>');
 
     // Удалила все <img>
     var photoArea = document.querySelector('.lodge__photos');
