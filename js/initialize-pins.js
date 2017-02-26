@@ -85,11 +85,13 @@ window.initializePins = (function () {
 
   var callback = function (similarApartments) {
 
+    // Клонируем элемент из <template>
+    var templateElement = document.querySelector('#pin-template');
+    var elementToClone = templateElement.content.querySelector('.pin');
+
     for (var j = 0; j < similarApartments.length; j++) {
-      // Клонируем элемент из <template>
-      var templateElement = document.querySelector('#pin-template');
-      var elementToClone = templateElement.content.querySelector('.pin');
-      // Добавляем его в массив
+
+      // Добавляем элемент в массив
       newElements.push(elementToClone.cloneNode(true));
 
       // Координаты для новых пинов
@@ -104,20 +106,20 @@ window.initializePins = (function () {
       tokios[0].appendChild(newElements[j]);
     }
 
-    for (let i = 0; i < similarApartments.length; i++) {
-      newElements[i].addEventListener('click', function () {
-        window.showCard.fill(similarApartments[i]);
-      });
-      newElements[i].addEventListener('keydown', function (evt) {
-        if (evt.keyCode === ENTER_KEY_CODE) {
-          window.showCard.fill(similarApartments[i]);
-        }
-      });
+    for (var m = 0; m < similarApartments.length; m++) {
+      (function (f) {
+        newElements[f].addEventListener('click', function () {
+          window.showCard.fill(similarApartments[f]);
+        });
+        newElements[f].addEventListener('keydown', function (evt) {
+          if (evt.keyCode === ENTER_KEY_CODE) {
+            window.showCard.fill(similarApartments[f]);
+          }
+        });
+      }.bind(null, m))();
     }
 
-    var housingPrice = document.querySelector('#housing_price');
-
-    var changeHandler = function () {
+    function changeHandler() {
 
       var housingTypeValue = housingType.options[housingType.selectedIndex].value;
       var housingPriceValue = housingPrice.options[housingPrice.selectedIndex].value;
@@ -126,7 +128,7 @@ window.initializePins = (function () {
 
       for (var i = 0; i < similarApartments.length; i++) {
         var isFine = true;
-        if ((similarApartments[i].offer.type !==  housingTypeValue) && (housingTypeValue !== 'any')) {
+        if ((similarApartments[i].offer.type !== housingTypeValue) && (housingTypeValue !== 'any')) {
           isFine = false;
         }
 
@@ -143,38 +145,42 @@ window.initializePins = (function () {
         }
 
 
-        if ((String(similarApartments[i].offer.rooms) !==  housingRoomNumberValue) && (housingRoomNumberValue !== 'any')) {
+        if ((String(similarApartments[i].offer.rooms) !== housingRoomNumberValue) && (housingRoomNumberValue !== 'any')) {
           isFine = false;
         }
 
-        if ((String(similarApartments[i].offer.guests) !==  housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any')) {
+        if ((String(similarApartments[i].offer.guests) !== housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any')) {
           isFine = false;
         }
 
-       for (var k = 0; k < housingFeaturesArray.length; k++) {
-         if (housingFeaturesArray[k].checked) {
-           if (similarApartments[i].offer.features.indexOf(housingFeaturesArray[k].value) === -1) {
-             isFine = false;
-           }
-         }
-       } 
+        for (var k = 0; k < housingFeaturesArray.length; k++) {
+          if (housingFeaturesArray[k].checked) {
+            if (similarApartments[i].offer.features.indexOf(housingFeaturesArray[k].value) === -1) {
+              isFine = false;
+            }
+          }
+        }
 
         if (isFine) {
-          pinMap.children[i+1].style.visibility = 'visible';
+          pinMap.children[i + 1].style.visibility = 'visible';
         } else {
-          pinMap.children[i+1].style.visibility = 'hidden';
+          pinMap.children[i + 1].style.visibility = 'hidden';
         }
       }
-    };
+    }
 
-      housingType.addEventListener('change', changeHandler);
-      housingPrice.addEventListener('change', changeHandler);
-      housingRoomNumber.addEventListener('change', changeHandler);
-      housingGuestsNumber.addEventListener('change', changeHandler);
+    housingType.addEventListener('change', changeHandler);
+    housingPrice.addEventListener('change', changeHandler);
+    housingRoomNumber.addEventListener('change', changeHandler);
+    housingGuestsNumber.addEventListener('change', changeHandler);
 
-      for (let l = 0; l < housingFeaturesArray.length; l++) {
-        housingFeaturesArray[l].addEventListener('click', changeHandler);
-      }
+    for (var l = 0; l < housingFeaturesArray.length; l++) {
+      (function (g) {
+        housingFeaturesArray[g].addEventListener('click', changeHandler);
+      }.bind(null, l))();
+    }
+
+    changeHandler();
   };
 
 
