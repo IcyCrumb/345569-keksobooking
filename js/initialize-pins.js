@@ -4,6 +4,7 @@ window.initializePins = (function () {
 
   var ENTER_KEY_CODE = 13;
   var pinMap = document.querySelector('.tokyo__pin-map');
+  var activeElement = document.querySelector('div.pin.pin--active');
   var activeClass = 'pin--active';
 
   var housingType = document.querySelector('#housing_type');
@@ -17,13 +18,14 @@ window.initializePins = (function () {
   // функция дективирует предыдущий элемент и делает активным текущий
   function activeElementHandler(elem) {
     elem.setAttribute('aria-pressed', 'true');
-    var activeElement = document.querySelector('div.pin.pin--active');
 
     if (activeElement) {
       activeElement.classList.remove(activeClass);
+      activeElement = null;
       elem.setAttribute('aria-pressed', 'false');
     }
 
+    activeElement = elem;
     elem.classList.add(activeClass);
   }
 
