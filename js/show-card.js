@@ -55,28 +55,28 @@ window.showCard = (function () {
 
 
     // Удалила все <img>
-     var photoArea = document.querySelector('.lodge__photos');
-     var photos = document.querySelectorAll('.lodge__photos');
-     var images = photoArea.querySelectorAll('img');
+    var photoArea = document.querySelector('.lodge__photos');
+    var photos = document.querySelectorAll('.lodge__photos');
+    var images = photoArea.querySelectorAll('img');
 
-     images.forEach(function(item) {
-       photos[0].removeChild(item);
-     });
+    images.forEach(function (item) {
+      photos[0].removeChild(item);
+    });
 
-     var newElements = [];
+    var newElements = [];
 
-     data.offer.photos.forEach(function(photo) {
-       // Клонирование шаблона <template>
-       var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
-       var clonedElement = elementToClone.cloneNode(true);
-       clonedElement.src = photo;
-       // Добавление элемента в массив
-       newElements.push(clonedElement);
-     });
-      // Загрузка аватарки
-     newElements.forEach(function(newPhotoElement) {
-       photos[0].appendChild(newPhotoElement);
-     });
+    data.offer.photos.forEach(function (photo) {
+      // Клонирование шаблона <template>
+      var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
+      var clonedElement = elementToClone.cloneNode(true);
+      clonedElement.src = photo;
+      // Добавление элемента в массив
+      newElements.push(clonedElement);
+    });
+    // Загрузка аватарки
+    newElements.forEach(function (newPhotoElement) {
+      photos[0].appendChild(newPhotoElement);
+    });
   }
 
   var onButtonCross;

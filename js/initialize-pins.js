@@ -86,32 +86,32 @@ window.initializePins = (function () {
   var callback = function (similarApartments) {
 
     // Клонируем элемент из <template>
-     var templateElement = document.querySelector('#pin-template');
-     var elementToClone = templateElement.content.querySelector('.pin');
+    var templateElement = document.querySelector('#pin-template');
+    var elementToClone = templateElement.content.querySelector('.pin');
 
-     similarApartments.forEach(function(apartamentItemData) {
-       var clonedElement = elementToClone.cloneNode(true);
-       clonedElement.style.position = 'absolute';
-       clonedElement.style.top = apartamentItemData.location.y + 'px';
-       clonedElement.style.left = apartamentItemData.location.x + 'px';
-       clonedElement.children[0].src = apartamentItemData.author.avatar;
-       newElements.push(clonedElement);
-     });
+    similarApartments.forEach(function (apartamentItemData) {
+      var clonedElement = elementToClone.cloneNode(true);
+      clonedElement.style.position = 'absolute';
+      clonedElement.style.top = apartamentItemData.location.y + 'px';
+      clonedElement.style.left = apartamentItemData.location.x + 'px';
+      clonedElement.children[0].src = apartamentItemData.author.avatar;
+      newElements.push(clonedElement);
+    });
      // загрузка аватарки
-     newElements.forEach(function(element) {
-       tokios[0].appendChild(element);
-     });
+    newElements.forEach(function (element) {
+      tokios[0].appendChild(element);
+    });
 
-     similarApartments.forEach(function(apartamentItem, itemIndex) {
-        newElements[itemIndex].addEventListener('click', function () {
-          window.showCard.fill(similarApartments[itemIndex]);
-        });
-        newElements[itemIndex].addEventListener('keydown', function (evt) {
-          if(evt.keyCode === ENTER_KEY_CODE) {
-            window.showCard.fill(similarApartments[itemIndex]);
-          }
-        });
+    similarApartments.forEach(function (apartamentItem, itemIndex) {
+      newElements[itemIndex].addEventListener('click', function () {
+        window.showCard.fill(similarApartments[itemIndex]);
       });
+      newElements[itemIndex].addEventListener('keydown', function (evt) {
+        if (evt.keyCode === ENTER_KEY_CODE) {
+          window.showCard.fill(similarApartments[itemIndex]);
+        }
+      });
+    });
 
     var i;
     function changeHandler() {
@@ -163,7 +163,6 @@ window.initializePins = (function () {
           }
         }
 
-      //  var dial = document.querySelector('.dialog');
         if (isFine) {
           pinMap.children[i + 1].style.visibility = 'visible';
         } else {
@@ -178,7 +177,7 @@ window.initializePins = (function () {
     housingRoomNumber.addEventListener('change', changeHandler);
     housingGuestsNumber.addEventListener('change', changeHandler);
 
-    Array.prototype.forEach.call(housingFeaturesArray, function(featureItem) {
+    Array.prototype.forEach.call(housingFeaturesArray, function (featureItem) {
       featureItem.addEventListener('click', changeHandler);
     });
 
