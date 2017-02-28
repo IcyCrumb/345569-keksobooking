@@ -4,35 +4,44 @@ window.showCard = (function () {
   var buttonCross = document.querySelector('.dialog__close');
   var dialogWindow = document.querySelector('.dialog');
 
+  // Клонирование шаблона <template>
+  var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
+
+  var avatar = dialogWindow.getElementsByTagName('img')[0];
+  var title = dialogWindow.querySelector('.lodge__title');
+  var address = dialogWindow.querySelector('.lodge__address');
+  var price = dialogWindow.querySelector('.lodge__price');
+  var type = dialogWindow.querySelector('.lodge__type');
+
+  var roomsAndGuests = dialogWindow.querySelector('.lodge__rooms-and-guests');
+  var checkin = dialogWindow.querySelector('.lodge__checkin-time');
+  var features = dialogWindow.querySelector('.lodge__features');
+  var description = dialogWindow.querySelector('.lodge__description');
+
   // Функция заполняет элемент .dialog данными
   function fillWithData(data) {
-    var avatar = dialogWindow.getElementsByTagName('img')[0];
+
     avatar.src = data.author.avatar;
-
-    var title = dialogWindow.querySelector('.lodge__title');
     title.innerText = data.offer.title;
-
-    var address = dialogWindow.querySelector('.lodge__address');
     address.innerText = data.offer.address;
-
-    var price = dialogWindow.querySelector('.lodge__price');
     price.innerText = data.offer.price + '/ночь';
-
-    var type = dialogWindow.querySelector('.lodge__type');
     type.innerText = data.offer.type;
 
-
-    var roomsWordForm = 'комнат';
-    if (data.offer.rooms === 1) {
-      roomsWordForm = 'комната';
-    } else if (data.offer.rooms === 2 || data.offer.rooms === 3 || data.offer.rooms === 4) {
-      roomsWordForm = 'комнаты';
+    var roomsWordForm;
+    switch (data.offer.rooms) {
+      case 1:
+        roomsWordForm = 'комната';
+        break;
+      case 2:
+      case 3:
+      case 4:
+        roomsWordForm = 'комнаты';
+        break;
+      default:
+        roomsWordForm = 'комнат';
     }
 
-    var guestsWordForm = 'гостей';
-    if (data.offer.guests === 1) {
-      guestsWordForm = 'гостя';
-    }
+    var guestsWordForm = (data.offer.guests === 1) ?  'гостя' : 'гостей';
 
     var roomsAndGuests = dialogWindow.querySelector('.lodge__rooms-and-guests');
     roomsAndGuests.innerText = data.offer.rooms + ' ' + roomsWordForm + ' для ' + data.offer.guests + ' ' + guestsWordForm;
@@ -56,18 +65,17 @@ window.showCard = (function () {
 
     // Удалила все <img>
     var photoArea = document.querySelector('.lodge__photos');
-    var photos = document.querySelectorAll('.lodge__photos');
     var images = photoArea.querySelectorAll('img');
 
     images.forEach(function (item) {
-      photos[0].removeChild(item);
+      photoArea.removeChild(item);
     });
 
     var newElements = [];
 
     data.offer.photos.forEach(function (photo) {
       // Клонирование шаблона <template>
-      var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
+      // var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
       var clonedElement = elementToClone.cloneNode(true);
       clonedElement.src = photo;
       // Добавление элемента в массив
@@ -75,7 +83,7 @@ window.showCard = (function () {
     });
     // Загрузка аватарки
     newElements.forEach(function (newPhotoElement) {
-      photos[0].appendChild(newPhotoElement);
+      photoArea.appendChild(newPhotoElement);
     });
   }
 

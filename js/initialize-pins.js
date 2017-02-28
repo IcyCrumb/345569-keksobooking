@@ -3,9 +3,16 @@
 window.initializePins = (function () {
 
   var ENTER_KEY_CODE = 13;
+
   var pinMap = document.querySelector('.tokyo__pin-map');
+  var pinMain = document.querySelector('.pin__main');
+  var dialogWindow = document.querySelector('.dialog');
+
   var activeElement = document.querySelector('div.pin.pin--active');
   var activeClass = 'pin--active';
+
+  // Клонируем элемент из <template>
+  var templateElement = document.querySelector('#pin-template');
 
   var housingType = document.querySelector('#housing_type');
   var housingPrice = document.querySelector('#housing_price');
@@ -30,9 +37,8 @@ window.initializePins = (function () {
   }
 
   function commonHandler(target, keyDown) {
-    var dialogWindow = document.querySelector('.dialog');
     dialogWindow.style.visibility = 'visible';
-    var pinMain = document.querySelector('.pin__main');
+
     while (target !== document.body) {
       if (target === pinMain) {
         dialogWindow.style.visibility = 'hidden';
@@ -86,9 +92,8 @@ window.initializePins = (function () {
   var newElements = [];
 
   var callback = function (similarApartments) {
-
     // Клонируем элемент из <template>
-    var templateElement = document.querySelector('#pin-template');
+    //  var templateElement = document.querySelector('#pin-template');
     var elementToClone = templateElement.content.querySelector('.pin');
 
     similarApartments.forEach(function (apartamentItemData) {
@@ -115,7 +120,7 @@ window.initializePins = (function () {
       });
     });
 
-    var i;
+    // var i;
     function changeHandler() {
 
       var housingTypeValue = housingType.options[housingType.selectedIndex].value;
@@ -123,8 +128,7 @@ window.initializePins = (function () {
       var housingRoomNumberValue = housingRoomNumber.options[housingRoomNumber.selectedIndex].value;
       var housingGuestsNumberValue = housingGuestsNumber.options[housingGuestsNumber.selectedIndex].value;
 
-      for (i = 0; i < similarApartments.length; i++) {
-        var isFine = true;
+      for (var i = 0; i < similarApartments.length; i++) {
 
         var type = similarApartments[i].offer.type;
         var price = similarApartments[i].offer.price;
@@ -132,45 +136,23 @@ window.initializePins = (function () {
         var guests = similarApartments[i].offer.guests;
         var features = similarApartments[i].offer.features;
 
-        if ((type !== housingTypeValue) && (housingTypeValue !== 'any')) {
-          isFine = false;
-        }
-
-        if ((price < 10000) && (housingPriceValue !== 'low')) {
-          isFine = false;
-        }
-
-        if ((price >= 10000) && (price < 50000) && (housingPriceValue !== 'middle')) {
-          isFine = false;
-        }
-
-        if ((price > 50000) && (housingPriceValue !== 'hight')) {
-          isFine = false;
-        }
-
-
-        if ((String(rooms) !== housingRoomNumberValue) && (housingRoomNumberValue !== 'any')) {
-          isFine = false;
-        }
-
-        if ((String(guests) !== housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any')) {
-          isFine = false;
-        }
+        var isFine = (type !== housingTypeValue) && (housingTypeValue !== 'any') ||
+        (price < 10000) && (housingPriceValue !== 'low') ||
+        (price >= 10000) && (price < 50000) && (housingPriceValue !== 'middle') ||
+        (price > 50000) && (housingPriceValue !== 'hight') ||
+        (String(rooms) !== housingRoomNumberValue) && (housingRoomNumberValue !== 'any') ||
+        (String(guests) !== housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any') ? false : true;
 
         for (var j = 0; j < housingFeaturesArray.length; j++) {
-          if (housingFeaturesArray[j].checked) {
-            if (features.indexOf(housingFeaturesArray[j].value) === -1) {
-              isFine = false;
-            }
+          if (housingFeaturesArray[j].checked && features.indexOf(housingFeaturesArray[j].value) === -1) {
+            isFine = false;
+            break;
           }
         }
 
-        if (isFine) {
-          pinMap.children[i + 1].style.visibility = 'visible';
-        } else {
-          pinMap.children[i + 1].style.visibility = 'hidden';
-        }
+        pinMap.children[i + 1].style.visibility = (isFine) ? 'visible' : 'hidden';
       }
+      
       window.showCard.hide();
     }
 
@@ -185,7 +167,7 @@ window.initializePins = (function () {
 
 
     var pins = document.querySelectorAll('.pin');
-    for (i = 3; i < similarApartments.length; i++) {
+    for (var i = 3; i < similarApartments.length; i++) {
       pins[i].style.visibility = 'hidden';
     }
   };
