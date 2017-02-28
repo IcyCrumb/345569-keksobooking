@@ -26,8 +26,8 @@ window.form = (function () {
 
   window.synchronizeFields(selectType, price, availableAccommodationTypes, availablePrices, callbackMin);
 
-  var selectTimeIn = document.getElementById('time');
-  var selectTimeOut = document.getElementById('timeout');
+  var selectTimein = document.getElementById('time');
+  var selectTimeout = document.getElementById('timeout');
 
   var availableTimein = ['12', '13', '14'];
   var availableTimeout = ['12', '13', '14'];
@@ -36,8 +36,8 @@ window.form = (function () {
     element['value'] = value;
   };
 
-  window.synchronizeFields(selectTimeIn, selectTimeOut, availableTimein, availableTimeout, callbackValue);
-  window.synchronizeFields(selectTimeOut, selectTimeIn, availableTimeout, availableTimein, callbackValue);
+  window.synchronizeFields(selectTimein, selectTimeout, availableTimein, availableTimeout, callbackValue);
+  window.synchronizeFields(selectTimeout, selectTimein, availableTimeout, availableTimein, callbackValue);
 
 
   var selectRoomNumber = document.getElementById('room_number');
