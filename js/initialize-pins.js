@@ -86,14 +86,10 @@ window.initializePins = (function () {
 
   window.showCard.show();
 
-  var tokios = document.querySelectorAll('.tokyo__pin-map');
-
   // Массив пинов
   var newElements = [];
 
   var callback = function (similarApartments) {
-    // Клонируем элемент из <template>
-    //  var templateElement = document.querySelector('#pin-template');
     var elementToClone = templateElement.content.querySelector('.pin');
 
     similarApartments.forEach(function (apartamentItemData) {
@@ -106,7 +102,7 @@ window.initializePins = (function () {
     });
      // загрузка аватарки
     newElements.forEach(function (element) {
-      tokios[0].appendChild(element);
+      pinMap.appendChild(element);
     });
 
     similarApartments.forEach(function (apartamentItem, itemIndex) {
@@ -120,7 +116,6 @@ window.initializePins = (function () {
       });
     });
 
-    // var i;
     function changeHandler() {
 
       var housingTypeValue = housingType.options[housingType.selectedIndex].value;
@@ -152,7 +147,7 @@ window.initializePins = (function () {
 
         pinMap.children[i + 1].style.visibility = (isFine) ? 'visible' : 'hidden';
       }
-      
+
       window.showCard.hide();
     }
 
@@ -173,7 +168,7 @@ window.initializePins = (function () {
   };
 
 
-    // Вызываем window.load
+  // Вызываем window.load
   window.load('https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data', callback);
 
 })();

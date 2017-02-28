@@ -41,15 +41,10 @@ window.showCard = (function () {
         roomsWordForm = 'комнат';
     }
 
-    var guestsWordForm = (data.offer.guests === 1) ?  'гостя' : 'гостей';
+    var guestsWordForm = (data.offer.guests === 1) ? 'гостя' : 'гостей';
 
-    var roomsAndGuests = dialogWindow.querySelector('.lodge__rooms-and-guests');
     roomsAndGuests.innerText = data.offer.rooms + ' ' + roomsWordForm + ' для ' + data.offer.guests + ' ' + guestsWordForm;
-
-    var checkin = dialogWindow.querySelector('.lodge__checkin-time');
     checkin.innerText = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-
-    var features = dialogWindow.querySelector('.lodge__features');
 
     features.getElementsByTagName('span')[0].style.display = (data.offer.features.indexOf('wifi') === -1) ? 'none' : 'block';
     features.getElementsByTagName('span')[1].style.display = (data.offer.features.indexOf('dishwasher') === -1) ? 'none' : 'block';
@@ -58,8 +53,6 @@ window.showCard = (function () {
     features.getElementsByTagName('span')[4].style.display = (data.offer.features.indexOf('elevator') === -1) ? 'none' : 'block';
     features.getElementsByTagName('span')[5].style.display = (data.offer.features.indexOf('conditioner') === -1) ? 'none' : 'block';
 
-
-    var description = dialogWindow.querySelector('.lodge__description');
     description.innerText = data.offer.description;
 
 
@@ -74,8 +67,6 @@ window.showCard = (function () {
     var newElements = [];
 
     data.offer.photos.forEach(function (photo) {
-      // Клонирование шаблона <template>
-      // var elementToClone = document.querySelector('#lodge-template').content.querySelector('img');
       var clonedElement = elementToClone.cloneNode(true);
       clonedElement.src = photo;
       // Добавление элемента в массив
