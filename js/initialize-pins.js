@@ -3,6 +3,8 @@
 window.initializePins = (function () {
 
   var ENTER_KEY_CODE = 13;
+  var LOW_PRICE = 10000;
+  var HIGH_PRICE = 50000;
 
   var pinMap = document.querySelector('.tokyo__pin-map');
   var pinMain = document.querySelector('.pin__main');
@@ -100,7 +102,7 @@ window.initializePins = (function () {
       clonedElement.children[0].src = apartamentItemData.author.avatar;
       newElements.push(clonedElement);
     });
-     // загрузка аватарки
+    // загрузка аватарки
     newElements.forEach(function (element) {
       pinMap.appendChild(element);
     });
@@ -123,30 +125,30 @@ window.initializePins = (function () {
       var housingRoomNumberValue = housingRoomNumber.options[housingRoomNumber.selectedIndex].value;
       var housingGuestsNumberValue = housingGuestsNumber.options[housingGuestsNumber.selectedIndex].value;
 
-      for (var i = 0; i < similarApartments.length; i++) {
+      similarApartments.forEach(function (apartamentItemData, apartamentItem) {
 
-        var type = similarApartments[i].offer.type;
-        var price = similarApartments[i].offer.price;
-        var rooms = similarApartments[i].offer.rooms;
-        var guests = similarApartments[i].offer.guests;
-        var features = similarApartments[i].offer.features;
+        var type = apartamentItemData.offer.type;
+        var price = apartamentItemData.offer.price;
+        var rooms = apartamentItemData.offer.rooms;
+        var guests = apartamentItemData.offer.guests;
+        var features = apartamentItemData.offer.features;
 
         var isFine = (type !== housingTypeValue) && (housingTypeValue !== 'any') ||
-        (price < 10000) && (housingPriceValue !== 'low') ||
-        (price >= 10000) && (price < 50000) && (housingPriceValue !== 'middle') ||
-        (price > 50000) && (housingPriceValue !== 'hight') ||
+        (price < LOW_PRICE) && (housingPriceValue !== 'low') ||
+        (price >= LOW_PRICE) && (price <= HIGH_PRICE) && (housingPriceValue !== 'middle') ||
+        (price > HIGH_PRICE) && (housingPriceValue !== 'hight') ||
         (String(rooms) !== housingRoomNumberValue) && (housingRoomNumberValue !== 'any') ||
         (String(guests) !== housingGuestsNumberValue) && (housingGuestsNumberValue !== 'any') ? false : true;
 
-        for (var j = 0; j < housingFeaturesArray.length; j++) {
-          if (housingFeaturesArray[j].checked && features.indexOf(housingFeaturesArray[j].value) === -1) {
-            isFine = false;
-            break;
-          }
-        }
 
-        pinMap.children[i + 1].style.visibility = (isFine) ? 'visible' : 'hidden';
-      }
+        Array.prototype.forEach.call(housingFeaturesArray, function (featuresItemData) {
+          if (featuresItemData.checked && features.indexOf(featuresItemData.value) === -1) {
+            isFine = false;
+          }
+        });
+
+        pinMap.children[apartamentItem + 1].style.visibility = (isFine) ? 'visible' : 'hidden';
+      });
 
       window.showCard.hide();
     }
@@ -162,9 +164,12 @@ window.initializePins = (function () {
 
 
     var pins = document.querySelectorAll('.pin');
-    for (var i = 3; i < similarApartments.length; i++) {
-      pins[i].style.visibility = 'hidden';
-    }
+    // при начальной загрузке страницы показываются первые три объекта
+    pins.forEach(function (pinsItem, pinsIndex) {
+      if (pinsIndex > 3) {
+        pinsItem.style.visibility = 'hidden';
+      }
+    });
   };
 
 
